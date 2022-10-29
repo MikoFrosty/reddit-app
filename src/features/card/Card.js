@@ -70,10 +70,10 @@ export default function Card({ result }) {
     justifyContent: "center",
     padding: "10px 20px",
     marginBottom: 10,
-    border: "1px solid #ccc",
+    border: "1px solid #494949",
     borderRadius: 5,
-    boxShadow: "0 0 5px #ccc",
-    backgroundColor: "#f5f5f5",
+    boxShadow: "0 0 5px #000",
+    backgroundColor: "#181818",
     maxWidth: 700,
   };
 
@@ -83,6 +83,7 @@ export default function Card({ result }) {
     padding: "10 0",
     display: "flex",
     justifyContent: "space-between",
+    alignItems: "center",
   };
 
   const h2Style = {
