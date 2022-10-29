@@ -9,6 +9,7 @@ export default function Footer() {
         width: '100%',
         height: 70,
         zIndex: '100',
+        color: '#fff',
     };
 
     return (
