@@ -33,6 +33,7 @@ export default function Home() {
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
+    color: "#fff",
   };
 
   function handleLoadClick() {
@@ -42,7 +43,22 @@ export default function Home() {
   if (status === "loading") {
     return (
       <div style={homeContainerStyle}>
-        <Skeleton count={5} containerClassName="skeleton-container" height="100px"/>
+        <Skeleton
+          count={5}
+          containerClassName="skeleton-container"
+          height="100px"
+          baseColor="#252525"
+          highlightColor="#505050"
+          style={{ border: "1px solid #505050", marginBottom: 10 }}
+        />
+      </div>
+    );
+  }
+
+  if (status === "rejected") {
+    return (
+      <div style={homeContainerStyle}>
+        <p>Failed to load posts | Please try again later</p>
       </div>
     );
   }
