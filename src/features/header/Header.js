@@ -9,11 +9,12 @@ export default function Header() {
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',
-        height: 70,
-        backgroundColor: '#f5f5f5',
+        height: 60,
+        color: '#fff',
+        backgroundColor: '#202020',
         zIndex: '1000',
-        boxShadow: '0 0 5px #ccc',
-        borderBottom: '1px solid #ccc',
+        boxShadow: '0 0 5px #000',
+        borderBottom: '1px solid #505050',
     }
 
     return (
