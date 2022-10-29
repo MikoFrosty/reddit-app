@@ -9,15 +9,15 @@ import {
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [subreddit, setSubreddit] = useState("top");
+  //const [subreddit, setSubreddit] = useState("top"); // For future use
   const status = useSelector(selectRedditStatus);
   // remember when setting new subreddits to prefix with r/
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchReddit(subreddit));
+    dispatch(fetchReddit("top")); // change to 'subreddit' after implementing search
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [subreddit]);
+  }, []); // add 'subreddit' to the array after implementing search
   const redditResults = useSelector(selectRedditResults);
 
   const [page, setPage] = useState(1);
