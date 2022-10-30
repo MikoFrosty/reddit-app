@@ -7,6 +7,7 @@ const initialState = {
   commentsStatus: "idle",
   commentsId: "",
   subreddit: "top",
+  searchTerm: "",
 };
 
 export const fetchReddit = createAsyncThunk(
@@ -39,10 +40,14 @@ export const redditSlice = createSlice({
     setSubreddit: (state, action) => {
       state.subreddit = action.payload;
     },
+    setSearchTerm: (state, action) => {
+      state.searchTerm = action.payload;
+    },
   },
   extraReducers: {
     [fetchReddit.pending]: (state) => {
       state.status = "loading";
+      state.searchTerm = "";
     },
     [fetchReddit.fulfilled]: (state, action) => {
       state.status = "idle";
@@ -72,6 +77,7 @@ export const selectComments = (state) => state.reddit.comments;
 export const selectCommentsId = (state) => state.reddit.commentsId;
 export const selectCommentsStatus = (state) => state.reddit.commentsStatus;
 export const selectSubreddit = (state) => state.reddit.subreddit;
+export const selectSearchTerm = (state) => state.reddit.searchTerm;
 
 export default redditSlice.reducer;
-export const { setCommentsId, setSubreddit } = redditSlice.actions;
+export const { setCommentsId, setSubreddit, setSearchTerm } = redditSlice.actions;
