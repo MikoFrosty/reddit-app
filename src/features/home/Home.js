@@ -5,19 +5,19 @@ import {
   selectRedditResults,
   fetchReddit,
   selectRedditStatus,
+  selectSubreddit
 } from "../../app/redditSlice";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  //const [subreddit, setSubreddit] = useState("top"); // For future use
+  const subreddit = useSelector(selectSubreddit);
   const status = useSelector(selectRedditStatus);
-  // remember when setting new subreddits to prefix with r/
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchReddit("top")); // change to 'subreddit' after implementing search
+    dispatch(fetchReddit(subreddit));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // add 'subreddit' to the array after implementing search
+  }, [subreddit]);
   const redditResults = useSelector(selectRedditResults);
 
   const [page, setPage] = useState(1);
