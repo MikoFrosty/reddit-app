@@ -110,7 +110,7 @@ export default function Card({ result }) {
       <div style={cardContainerStyle}>
         <h2 style={h2Style}>{result.title}</h2>
         {isTypeVideo() ? (
-          <video src={getImage()} controls style={mediaStyle} />
+          <video src={getImage()} controls autoPlay muted style={mediaStyle} />
         ) : (
           <img src={getImage()} alt={result.title} style={mediaStyle} />
         )}
