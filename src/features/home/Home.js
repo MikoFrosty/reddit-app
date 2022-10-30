@@ -1,24 +1,29 @@
 import Skeleton from "react-loading-skeleton";
 import Card from "../card/Card";
+import SearchBar from "./SearchBar";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectRedditResults,
   fetchReddit,
   selectRedditStatus,
-  selectSubreddit
+  selectSubreddit,
+  selectSearchTerm,
 } from "../../app/redditSlice";
 import { useEffect, useState } from "react";
 
 export default function Home() {
   const subreddit = useSelector(selectSubreddit);
   const status = useSelector(selectRedditStatus);
+  const searchTerm = useSelector(selectSearchTerm);
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchReddit(subreddit));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [subreddit]);
-  const redditResults = useSelector(selectRedditResults);
+  const redditResults = useSelector(selectRedditResults).filter((post) =>
+    post.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const [page, setPage] = useState(1);
   const [postsPerPage] = useState(10);
@@ -65,6 +70,7 @@ export default function Home() {
 
   return (
     <div style={homeContainerStyle}>
+      <SearchBar />
       {currentPosts.map((result) => (
         <Card key={result.id} result={result} />
       ))}
