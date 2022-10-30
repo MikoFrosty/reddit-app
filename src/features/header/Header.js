@@ -1,3 +1,5 @@
+import RedditCategorySelector from './RedditCategorySelector';
+
 export default function Header() {
     
     const headerContainerStyle = {
@@ -5,7 +7,7 @@ export default function Header() {
         top: '0',
         left: '0',
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',
@@ -17,9 +19,17 @@ export default function Header() {
         borderBottom: '1px solid #505050',
     }
 
+    const h1Style = {
+        fontSize: '1.4rem',
+        fontWeight: 'bold',
+        marginRight: '10%',
+        padding: '20px 5px',
+    }
+
     return (
         <div style={headerContainerStyle}>
-            <h1>Reddit For You</h1>
+            <h1 style={h1Style}>Reddit For You</h1>
+            <RedditCategorySelector />
         </div>
     )
 }
