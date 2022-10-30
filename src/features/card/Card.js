@@ -1,5 +1,6 @@
 import moment from "moment";
 import shortenNumber from "../../utils/shortenNumber";
+import { useInView } from "react-intersection-observer";
 import Comments from "../comments/Comments";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -15,6 +16,9 @@ export default function Card({ result }) {
   const comments = useSelector(selectComments) || [];
   const commentsId = useSelector(selectCommentsId) || "none";
   const [showComments, setShowComments] = useState(false);
+  const [ref, inView] = useInView({
+    threshold: .65,
+  });
 
   function getImage() {
     if (result.is_gallery) {
@@ -52,6 +56,12 @@ export default function Card({ result }) {
     } else {
       setShowComments(!showComments);
     }
+  }
+
+  function forceVideoPlay() {
+    const video = document.querySelector(`#video-${result.id}`);
+    inView ? video?.play() : video?.pause();
+    return inView;
   }
 
   const mediaStyle = {
@@ -110,8 +120,8 @@ export default function Card({ result }) {
       <div style={cardContainerStyle}>
         <h2 style={h2Style}>{result.title}</h2>
         {isTypeVideo() ? (
-          <video src={getImage()} controls autoPlay muted style={mediaStyle} />
-        ) : (
+          <video ref={ref} src={getImage()} id={`video-${result.id}`} controls autoPlay={forceVideoPlay()} playsInline muted style={mediaStyle} />
+          ) : (
           <img src={getImage()} alt={result.title} style={mediaStyle} />
         )}
         <div style={textBoxStyle}>
