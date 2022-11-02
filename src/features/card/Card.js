@@ -9,16 +9,26 @@ import {
   setCommentsId,
   fetchComments,
 } from "../../app/redditSlice";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Card({ result }) {
   const dispatch = useDispatch();
   const comments = useSelector(selectComments) || [];
   const commentsId = useSelector(selectCommentsId) || "none";
   const [showComments, setShowComments] = useState(false);
+  const [mediaLoaded, setMediaLoaded] = useState(false);
   const [ref, inView] = useInView({
     threshold: 0.65,
   });
+  const [ref2, inView2] = useInView({
+    threshold: 0.1,
+  });
+
+  useEffect(() => {
+    if (inView2 && !mediaLoaded) {
+      setMediaLoaded(true);
+    }
+  }, [inView2, mediaLoaded]);
 
   function getImage() {
     if (result.is_gallery) {
@@ -118,7 +128,7 @@ export default function Card({ result }) {
 
   return (
     <>
-      <div style={cardContainerStyle} data-testid="redditPost">
+      <div style={cardContainerStyle} ref={ref2} data-testid="redditPost">
         <h2 style={h2Style}>{result.title}</h2>
         <span>
           <a
@@ -130,7 +140,7 @@ export default function Card({ result }) {
             See post on Reddit
           </a>
         </span>
-        {isTypeVideo() ? (
+        {(inView2 || mediaLoaded) && (isTypeVideo() ? (
           <video
             loading="lazy"
             ref={ref}
@@ -149,7 +159,7 @@ export default function Card({ result }) {
             alt={result.title}
             style={mediaStyle}
           />
-        )}
+        ))}
         <div style={textBoxStyle}>
           <span style={spanStyle}>
             Posted by: {result.author} (
