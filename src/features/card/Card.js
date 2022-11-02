@@ -24,7 +24,7 @@ export default function Card({ result }) {
     if (result.is_gallery) {
       return result.media_metadata[
         result.gallery_data.items[0].media_id
-      ].s.u.replaceAll("&amp;", "&");
+      ].s.u.replace(/&amp;/g, "&");
     } else if (result.is_video) {
       return result.media.reddit_video.fallback_url;
     } else if (result.url.match(/gifv$/)) {
