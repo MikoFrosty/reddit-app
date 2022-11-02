@@ -8,15 +8,17 @@ const initialState = {
   commentsId: "",
   subreddit: "top",
   searchTerm: "",
+  afterId: "",
 };
 
 export const fetchReddit = createAsyncThunk(
   "reddit/fetchPosts",
-  async (subreddit = "home") => {
-    const response = await fetch(`https://www.reddit.com/${subreddit}.json?limit=100`);
+  async ({ subreddit, useAfterId = false, afterId = "" }) => {
+    const url = `https://www.reddit.com/${subreddit}.json?limit=10`;
+    const response = await fetch(url + (useAfterId ? `&after=${afterId}` : ""));
     const json = await response.json();
     const posts = json.data.children.map((child) => child.data);
-    return posts;
+    return { posts, useAfterId, afterId: json.data.after };
   }
 );
 
@@ -45,13 +47,24 @@ export const redditSlice = createSlice({
     },
   },
   extraReducers: {
-    [fetchReddit.pending]: (state) => {
-      state.status = "loading";
-      state.searchTerm = "";
+    [fetchReddit.pending]: (state, action) => {
+      const { useAfterId } = action.meta.arg;
+      if (useAfterId) {
+        state.status = "loadingMore";
+      } else {
+        state.status = "loading";
+      }
+        state.searchTerm = "";
     },
     [fetchReddit.fulfilled]: (state, action) => {
+      const { posts, useAfterId, afterId } = action.payload;
       state.status = "idle";
-      state.posts = action.payload;
+      state.afterId = afterId;
+      if (useAfterId) {
+        state.posts = [...state.posts, ...posts];
+      } else {
+        state.posts = posts;
+      }
     },
     [fetchReddit.rejected]: (state, action) => {
       state.status = "rejected";
@@ -78,6 +91,7 @@ export const selectCommentsId = (state) => state.reddit.commentsId;
 export const selectCommentsStatus = (state) => state.reddit.commentsStatus;
 export const selectSubreddit = (state) => state.reddit.subreddit;
 export const selectSearchTerm = (state) => state.reddit.searchTerm;
+export const selectAfterId = (state) => state.reddit.afterId;
 
 export default redditSlice.reducer;
 export const { setCommentsId, setSubreddit, setSearchTerm } = redditSlice.actions;
