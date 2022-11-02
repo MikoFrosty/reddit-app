@@ -76,7 +76,7 @@ export default function Home() {
         <Card key={result.id} result={result} />
       ))}
       {redditResults.length > currentPosts.length ? (
-        <button type="button" onClick={handleLoadClick}>Load More</button>
+        <button type="button" id="load-more-button" onClick={handleLoadClick}>Load More</button>
       ) : (
         <p style={{ fontWeight: "bold" }}>End of Feed</p>
       )}
