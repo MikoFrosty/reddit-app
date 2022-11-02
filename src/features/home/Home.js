@@ -21,6 +21,7 @@ export default function Home() {
     dispatch(fetchReddit(subreddit));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [subreddit]);
+  
   const redditResults = useSelector(selectRedditResults).filter((post) =>
     post.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -69,13 +70,13 @@ export default function Home() {
   }
 
   return (
-    <div style={homeContainerStyle}>
+    <div style={homeContainerStyle} data-testid="redditResults">
       <SearchBar />
       {currentPosts.map((result) => (
         <Card key={result.id} result={result} />
       ))}
       {redditResults.length > currentPosts.length ? (
-        <button onClick={handleLoadClick}>Load More</button>
+        <button type="button" onClick={handleLoadClick}>Load More</button>
       ) : (
         <p style={{ fontWeight: "bold" }}>End of Feed</p>
       )}
