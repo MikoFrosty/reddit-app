@@ -2,6 +2,10 @@ import RedditCategorySelector from './RedditCategorySelector';
 
 export default function Header() {
     
+    function handleLogoClick() {
+        window.location.reload();
+    }
+
     const headerContainerStyle = {
         position: 'fixed',
         top: '0',
@@ -23,12 +27,12 @@ export default function Header() {
         fontSize: '1.4rem',
         fontWeight: 'bold',
         marginRight: '10%',
-        padding: '20px 5px',
+        padding: 5,
     }
 
     return (
         <div style={headerContainerStyle}>
-            <h1 style={h1Style}>Reddit For You</h1>
+            <h1 style={h1Style} onClick={handleLogoClick}>Reddit For You</h1>
             <RedditCategorySelector />
         </div>
     )
