@@ -117,7 +117,7 @@ export default function Card({ result }) {
 
   return (
     <>
-      <div style={cardContainerStyle}>
+      <div style={cardContainerStyle} data-testid="redditPost">
         <h2 style={h2Style}>{result.title}</h2>
         {isTypeVideo() ? (
           <video ref={ref} src={getImage()} id={`video-${result.id}`} controls autoPlay={forceVideoPlay()} playsInline muted style={mediaStyle} />
