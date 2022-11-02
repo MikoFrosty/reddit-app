@@ -68,6 +68,7 @@ export default function Card({ result }) {
     maxWidth: 600,
     width: "100%",
     height: "auto",
+    maxHeight: '80vh',
     margin: "1% 3%",
   };
 
