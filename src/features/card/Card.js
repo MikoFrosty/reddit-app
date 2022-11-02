@@ -124,7 +124,7 @@ export default function Card({ result }) {
           <a
             className="link-to-reddit"
             rel="noopener noreferrer"
-            href={result.url}
+            href={`http://reddit.com${result.permalink}`}
             target="_blank"
           >
             See post on Reddit
