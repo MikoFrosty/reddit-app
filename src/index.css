@@ -36,9 +36,11 @@ button {
   cursor: pointer;
   outline: none;
   box-shadow: 0 1px 1px 2px rgba(0, 0, 0, 0.582);
+  font-weight: bold;
 }
 button:hover {
-  background: #505050;
+  background: #ff4400;
+  color: #000;
 }
 
 #load-more-button {
