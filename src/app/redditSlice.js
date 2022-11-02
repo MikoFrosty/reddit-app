@@ -13,7 +13,7 @@ const initialState = {
 export const fetchReddit = createAsyncThunk(
   "reddit/fetchPosts",
   async (subreddit = "home") => {
-    const response = await fetch(`https://www.reddit.com/${subreddit}.json`);
+    const response = await fetch(`https://www.reddit.com/${subreddit}.json?limit=100`);
     const json = await response.json();
     const posts = json.data.children.map((child) => child.data);
     return posts;
