@@ -8,6 +8,7 @@ import {
   selectRedditStatus,
   selectSubreddit,
   selectSearchTerm,
+  selectAfterId,
 } from "../../app/redditSlice";
 import { useEffect, useState } from "react";
 
@@ -15,13 +16,14 @@ export default function Home() {
   const subreddit = useSelector(selectSubreddit);
   const status = useSelector(selectRedditStatus);
   const searchTerm = useSelector(selectSearchTerm);
+  const afterId = useSelector(selectAfterId);
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchReddit(subreddit));
+    dispatch(fetchReddit({ subreddit }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [subreddit]);
-  
+
   const redditResults = useSelector(selectRedditResults).filter((post) =>
     post.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -42,23 +44,27 @@ export default function Home() {
     color: "#fff",
   };
 
-  function handleLoadClick() {
+  function handleLoadClick(e) {
+    e.preventDefault();
     setPage(page + 1);
+    dispatch(fetchReddit({ subreddit, useAfterId: true, afterId }));
   }
 
-  if (status === "loading") {
+  function skeletonLoaders(numOfSkeletons = 1) {
     return (
-      <div style={homeContainerStyle}>
-        <Skeleton
-          count={5}
-          containerClassName="skeleton-container"
-          height="100px"
-          baseColor="#252525"
-          highlightColor="#505050"
-          style={{ border: "1px solid #505050", marginBottom: 10 }}
-        />
-      </div>
+      <Skeleton
+        count={numOfSkeletons}
+        containerClassName="skeleton-container"
+        height="100px"
+        baseColor="#252525"
+        highlightColor="#505050"
+        style={{ border: "1px solid #505050", marginBottom: 10 }}
+      />
     );
+  }
+  
+  if (status === "loading") {
+    return skeletonLoaders(5);
   }
 
   if (status === "rejected") {
@@ -75,11 +81,15 @@ export default function Home() {
       {currentPosts.map((result) => (
         <Card key={result.id} result={result} />
       ))}
-      {redditResults.length > currentPosts.length ? (
-        <button type="button" id="load-more-button" onClick={handleLoadClick}>Load More</button>
+      {status === "loadingMore" ? (
+        skeletonLoaders(3)
       ) : (
-        <p style={{ fontWeight: "bold" }}>End of Feed</p>
+        <button type="button" id="load-more-button" onClick={handleLoadClick}>
+          Load More
+        </button>
       )}
     </div>
   );
 }
+
+//<p style={{ fontWeight: "bold" }}>End of Feed</p> // not used anymore // Possible future use for no results found
