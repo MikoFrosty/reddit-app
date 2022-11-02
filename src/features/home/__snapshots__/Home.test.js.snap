@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home matches snapshot after 100ms (store status should be 'loading') 1`] = `
+<div
+  style={
+    Object {
+      "alignItems": "center",
+      "color": "#fff",
+      "display": "flex",
+      "flexDirection": "column",
+      "justifyContent": "center",
+      "width": "100%",
+    }
+  }
+>
+  <span
+    aria-busy={true}
+    aria-live="polite"
+    className="skeleton-container"
+  >
+    <span
+      className="react-loading-skeleton"
+      style={
+        Object {
+          "--base-color": "#252525",
+          "--highlight-color": "#505050",
+          "border": "1px solid #505050",
+          "height": "100px",
+          "marginBottom": 10,
+        }
+      }
+    >
+      ‌
+    </span>
+    <br />
+    <span
+      className="react-loading-skeleton"
+      style={
+        Object {
+          "--base-color": "#252525",
+          "--highlight-color": "#505050",
+          "border": "1px solid #505050",
+          "height": "100px",
+          "marginBottom": 10,
+        }
+      }
+    >
+      ‌
+    </span>
+    <br />
+    <span
+      className="react-loading-skeleton"
+      style={
+        Object {
+          "--base-color": "#252525",
+          "--highlight-color": "#505050",
+          "border": "1px solid #505050",
+          "height": "100px",
+          "marginBottom": 10,
+        }
+      }
+    >
+      ‌
+    </span>
+    <br />
+    <span
+      className="react-loading-skeleton"
+      style={
+        Object {
+          "--base-color": "#252525",
+          "--highlight-color": "#505050",
+          "border": "1px solid #505050",
+          "height": "100px",
+          "marginBottom": 10,
+        }
+      }
+    >
+      ‌
+    </span>
+    <br />
+    <span
+      className="react-loading-skeleton"
+      style={
+        Object {
+          "--base-color": "#252525",
+          "--highlight-color": "#505050",
+          "border": "1px solid #505050",
+          "height": "100px",
+          "marginBottom": 10,
+        }
+      }
+    >
+      ‌
+    </span>
+    <br />
+  </span>
+</div>
+`;
