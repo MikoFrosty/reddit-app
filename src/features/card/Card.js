@@ -132,6 +132,7 @@ export default function Card({ result }) {
         </span>
         {isTypeVideo() ? (
           <video
+            loading="lazy"
             ref={ref}
             src={getImage()}
             id={`video-${result.id}`}
@@ -142,7 +143,12 @@ export default function Card({ result }) {
             style={mediaStyle}
           />
         ) : (
-          <img src={getImage()} alt={result.title} style={mediaStyle} />
+          <img
+            loading="lazy"
+            src={getImage()}
+            alt={result.title}
+            style={mediaStyle}
+          />
         )}
         <div style={textBoxStyle}>
           <span style={spanStyle}>
