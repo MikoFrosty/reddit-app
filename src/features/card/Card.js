@@ -65,10 +65,10 @@ export default function Card({ result }) {
   }
 
   const mediaStyle = {
-    maxWidth: 600,
-    width: "100%",
+    maxWidth: "100%",
+    width: "auto",
     height: "auto",
-    maxHeight: "80vh",
+    maxHeight: "75vh",
     margin: "1% 3%",
   };
 
