@@ -17,7 +17,7 @@ export default function Card({ result }) {
   const commentsId = useSelector(selectCommentsId) || "none";
   const [showComments, setShowComments] = useState(false);
   const [ref, inView] = useInView({
-    threshold: .65,
+    threshold: 0.65,
   });
 
   function getImage() {
@@ -68,7 +68,7 @@ export default function Card({ result }) {
     maxWidth: 600,
     width: "100%",
     height: "auto",
-    maxHeight: '80vh',
+    maxHeight: "80vh",
     margin: "1% 3%",
   };
 
@@ -120,10 +120,28 @@ export default function Card({ result }) {
     <>
       <div style={cardContainerStyle} data-testid="redditPost">
         <h2 style={h2Style}>{result.title}</h2>
-        <span><a className="link-to-reddit" rel="noopener noreferrer" href={result.url} target="_blank">See post on Reddit</a></span>
+        <span>
+          <a
+            className="link-to-reddit"
+            rel="noopener noreferrer"
+            href={result.url}
+            target="_blank"
+          >
+            See post on Reddit
+          </a>
+        </span>
         {isTypeVideo() ? (
-          <video ref={ref} src={getImage()} id={`video-${result.id}`} controls autoPlay={forceVideoPlay()} playsInline muted style={mediaStyle} />
-          ) : (
+          <video
+            ref={ref}
+            src={getImage()}
+            id={`video-${result.id}`}
+            controls
+            autoPlay={forceVideoPlay()}
+            playsInline
+            muted
+            style={mediaStyle}
+          />
+        ) : (
           <img src={getImage()} alt={result.title} style={mediaStyle} />
         )}
         <div style={textBoxStyle}>
