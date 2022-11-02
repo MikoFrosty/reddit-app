@@ -119,6 +119,7 @@ export default function Card({ result }) {
     <>
       <div style={cardContainerStyle} data-testid="redditPost">
         <h2 style={h2Style}>{result.title}</h2>
+        <span><a className="link-to-reddit" rel="noopener noreferrer" href={result.url} target="_blank">See post on Reddit</a></span>
         {isTypeVideo() ? (
           <video ref={ref} src={getImage()} id={`video-${result.id}`} controls autoPlay={forceVideoPlay()} playsInline muted style={mediaStyle} />
           ) : (
