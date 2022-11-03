@@ -46,7 +46,7 @@ export default function Home() {
       <Skeleton
         count={numOfSkeletons}
         containerClassName="skeleton-container"
-        height="100px"
+        height="400px"
         baseColor="#252525"
         highlightColor="#505050"
         style={{ border: "1px solid #505050", marginBottom: 10 }}
@@ -55,7 +55,7 @@ export default function Home() {
   }
 
   if (status === "loading") {
-    return skeletonLoaders(5);
+    return skeletonLoaders(4);
   }
 
   if (status === "rejected") {
@@ -73,7 +73,7 @@ export default function Home() {
         <Card key={result.id} result={result} />
       ))}
       {status === "loadingMore" ? (
-        skeletonLoaders(3)
+        skeletonLoaders()
       ) : (
         <button type="button" id="load-more-button" onClick={handleLoadClick}>
           Load More
