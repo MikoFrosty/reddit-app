@@ -157,7 +157,6 @@ export default function Card({ result }) {
           />
         ) : (
           <img
-            loading="lazy"
             src={getImage()}
             alt={result.title}
             style={mediaStyle}
