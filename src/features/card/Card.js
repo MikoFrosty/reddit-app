@@ -25,6 +25,11 @@ export default function Card({ result }) {
   });
 
   useEffect(() => {
+    forceVideoPlay(inView);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inView]);
+
+  useEffect(() => {
     if (inView2 && !mediaLoaded) {
       setMediaLoaded(true);
     }
@@ -68,10 +73,9 @@ export default function Card({ result }) {
     }
   }
 
-  function forceVideoPlay() {
+  function forceVideoPlay(play) {
     const video = document.querySelector(`#video-${result.id}`);
-    inView ? video?.play() : video?.pause();
-    return inView;
+    play ? video?.play() : video?.pause();
   }
 
   const mediaStyle = {
@@ -142,12 +146,11 @@ export default function Card({ result }) {
         </span>
         {(inView2 || mediaLoaded) && (isTypeVideo() ? (
           <video
-            loading="lazy"
             ref={ref}
             src={getImage()}
             id={`video-${result.id}`}
             controls
-            autoPlay={forceVideoPlay()}
+            autoPlay={true}
             playsInline
             muted
             style={mediaStyle}
