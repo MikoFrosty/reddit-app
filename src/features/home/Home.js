@@ -10,7 +10,7 @@ import {
   selectSearchTerm,
   selectAfterId,
 } from "../../app/redditSlice";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export default function Home() {
   const subreddit = useSelector(selectSubreddit);
@@ -21,19 +21,11 @@ export default function Home() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchReddit({ subreddit }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [subreddit]);
+  }, [dispatch, subreddit]);
 
   const redditResults = useSelector(selectRedditResults).filter((post) =>
     post.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
-  const [page, setPage] = useState(1);
-  const [postsPerPage] = useState(10);
-  const indexOfLastPost = page * postsPerPage;
-  //const indexOfFirstPost = indexOfLastPost - postsPerPage; // not used
-  const currentPosts = redditResults.slice(0, indexOfLastPost);
-  //const paginate = (pageNumber) => setPage(pageNumber); // not used
 
   const homeContainerStyle = {
     width: "100%",
@@ -46,7 +38,6 @@ export default function Home() {
 
   function handleLoadClick(e) {
     e.preventDefault();
-    setPage(page + 1);
     dispatch(fetchReddit({ subreddit, useAfterId: true, afterId }));
   }
 
@@ -62,7 +53,7 @@ export default function Home() {
       />
     );
   }
-  
+
   if (status === "loading") {
     return skeletonLoaders(5);
   }
@@ -78,7 +69,7 @@ export default function Home() {
   return (
     <div style={homeContainerStyle} data-testid="redditResults">
       <SearchBar />
-      {currentPosts.map((result) => (
+      {redditResults.map((result) => (
         <Card key={result.id} result={result} />
       ))}
       {status === "loadingMore" ? (
@@ -91,5 +82,3 @@ export default function Home() {
     </div>
   );
 }
-
-//<p style={{ fontWeight: "bold" }}>End of Feed</p> // not used anymore // Possible future use for no results found
