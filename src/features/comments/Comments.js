@@ -1,37 +1,14 @@
 import Skeleton from "react-loading-skeleton";
 import { useSelector } from "react-redux";
 import { selectCommentsStatus } from "../../app/redditSlice";
+import commentsStyle from "./Comments.module.css";
 
 export default function Comments({ comments = [] }) {
   const commentsStatus = useSelector(selectCommentsStatus) || "idle";
 
-  const commentsContainerStyle = {
-    position: "relative",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    maxWidth: 700,
-    width: "100%",
-    zIndex: "100",
-  };
-
-  const commentStyle = {
-    backgroundColor: "#202020",
-    padding: 10,
-    margin: 5,
-    width: "100%",
-    height: "auto",
-    textAlign: "left",
-    border: "1px solid #505050",
-    borderRadius: 5,
-    boxShadow: "0 0 5px #000",
-    overflowWrap: "break-word",
-  };
-
   if (commentsStatus === "loading") {
     return (
-      <div style={commentsContainerStyle}>
+      <div id={commentsStyle["comments-container"]}>
         <Skeleton
           count={5}
           containerClassName="skeleton-container"
@@ -46,16 +23,16 @@ export default function Comments({ comments = [] }) {
 
   if (commentsStatus === "rejected") {
     return (
-      <div style={commentsContainerStyle}>
+      <div id={commentsStyle["comments-container"]}>
         <p>Failed to load comments | Please try again later</p>
       </div>
     );
   }
 
   return (
-    <div style={commentsContainerStyle}>
+    <div id={commentsStyle["comments-container"]}>
       {comments.map((comment) => (
-        <p style={commentStyle} key={comment.id}>
+        <p className={commentsStyle.comment} key={comment.id}>
           {comment.body}
         </p>
       ))}
