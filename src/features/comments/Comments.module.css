@@ -1,0 +1,23 @@
+#comments-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 700px;
+  width: 100%;
+  z-index: 100px;
+}
+
+.comment {
+  background-color: #202020;
+  padding: 10px;
+  margin: 5px;
+  width: 100%;
+  height: auto;
+  text-align: left;
+  border: 1px solid #505050;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #000;
+  overflow-wrap: break-word;
+}
