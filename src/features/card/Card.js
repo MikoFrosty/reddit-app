@@ -10,6 +10,7 @@ import {
   fetchComments,
 } from "../../app/redditSlice";
 import { useState, useEffect } from "react";
+import cardStyles from "./Card.module.css";
 
 export default function Card({ result }) {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ export default function Card({ result }) {
 
   useEffect(() => {
     forceVideoPlay(inView);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inView]);
 
   useEffect(() => {
@@ -55,7 +56,7 @@ export default function Card({ result }) {
     if (result.is_video) {
       return true;
     }
-    /*
+    /* // This is for future use - handling of gifv files
     if (result.url.match(/gifv$/)) {
       return true;
     }
@@ -78,62 +79,14 @@ export default function Card({ result }) {
     play ? video?.play() : video?.pause();
   }
 
-  const mediaStyle = {
-    maxWidth: "100%",
-    width: "auto",
-    height: "auto",
-    maxHeight: "75vh",
-    margin: "1% 3%",
-  };
-
-  const cardContainerStyle = {
-    width: "100%",
-    fontSize: "0.8rem",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "10px 20px",
-    marginBottom: 10,
-    border: "1px solid #494949",
-    borderRadius: 5,
-    boxShadow: "0 0 5px #000",
-    backgroundColor: "#181818",
-    maxWidth: 700,
-  };
-
-  const textBoxStyle = {
-    width: "100%",
-    height: "auto",
-    padding: "10 0",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-  };
-
-  const h2Style = {
-    fontSize: "1.4rem",
-    fontWeight: "bold",
-    margin: 0,
-    padding: "20px 5px",
-  };
-
-  const spanStyle = {
-    fontSize: "0.6rem",
-    flexBasis: "50%",
-  };
-
-  const commentsContainer = {
-    width: "100%",
-    marginBottom: 20,
-    display: "flex",
-    justifyContent: "center",
-  };
-
   return (
     <>
-      <div style={cardContainerStyle} ref={ref2} data-testid="redditPost">
-        <h2 style={h2Style}>{result.title}</h2>
+      <div
+        className={cardStyles["card-container"]}
+        ref={ref2}
+        data-testid="redditPost"
+      >
+        <h2>{result.title}</h2>
         <span>
           <a
             className="link-to-reddit"
@@ -144,41 +97,42 @@ export default function Card({ result }) {
             See post on Reddit
           </a>
         </span>
-        {(inView2 || mediaLoaded) && (isTypeVideo() ? (
-          <video
-            ref={ref}
-            src={getImage()}
-            id={`video-${result.id}`}
-            controls
-            autoPlay={true}
-            playsInline
-            muted
-            style={mediaStyle}
-          />
-        ) : (
-          <img
-            src={getImage()}
-            alt={result.title}
-            style={mediaStyle}
-          />
-        ))}
-        <div style={textBoxStyle}>
-          <span style={spanStyle}>
+        {(inView2 || mediaLoaded) &&
+          (isTypeVideo() ? (
+            <video
+              ref={ref}
+              src={getImage()}
+              id={`video-${result.id}`}
+              controls
+              autoPlay={true}
+              playsInline
+              muted
+              className={cardStyles.media}
+            />
+          ) : (
+            <img
+              src={getImage()}
+              alt={result.title}
+              className={cardStyles.media}
+            />
+          ))}
+        <div className={cardStyles["text-box"]}>
+          <span className={cardStyles["comment-info"]}>
             Posted by: {result.author} (
             {moment.unix(result.created_utc).fromNow()})
           </span>
           <button onClick={() => handleCommentsButtonClick()}>
-            <span style={spanStyle}>
+            <span className={cardStyles["comment-info"]}>
               Comments: {shortenNumber(result.num_comments, 1)}
             </span>
           </button>
-          <span style={spanStyle}>
+          <span className={cardStyles["comment-info"]}>
             Upvotes: {shortenNumber(result.score, 1)}
           </span>
         </div>
       </div>
       {commentsId === result.id && showComments && (
-        <div id={result.id} style={commentsContainer}>
+        <div id={result.id} className={cardStyles["comments-container"]}>
           <Comments comments={comments} />
         </div>
       )}
