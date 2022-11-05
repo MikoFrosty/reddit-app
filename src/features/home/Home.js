@@ -11,6 +11,7 @@ import {
   selectAfterId,
 } from "../../app/redditSlice";
 import { useEffect } from "react";
+import homeStyles from "./Home.module.css";
 
 export default function Home() {
   const subreddit = useSelector(selectSubreddit);
@@ -26,15 +27,6 @@ export default function Home() {
   const redditResults = useSelector(selectRedditResults).filter((post) =>
     post.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
-  const homeContainerStyle = {
-    width: "100%",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    color: "#fff",
-  };
 
   function handleLoadClick(e) {
     e.preventDefault();
@@ -60,14 +52,14 @@ export default function Home() {
 
   if (status === "rejected") {
     return (
-      <div style={homeContainerStyle}>
+      <div id={homeStyles["home-container"]}>
         <p>Failed to load posts | Please try again later</p>
       </div>
     );
   }
 
   return (
-    <div style={homeContainerStyle} data-testid="redditResults">
+    <div id={homeStyles["home-container"]} data-testid="redditResults">
       <SearchBar />
       {redditResults.map((result) => (
         <Card key={result.id} result={result} />
